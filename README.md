@@ -24,7 +24,7 @@ minikube: version v1.34.0
 
 <br>
 
-## 이미지 생성 
+## 이미지 생성 🖼
 
 #### 1️⃣) docker image를 생성하기 위해 dockerfile을 생성해줍니다.
 
@@ -60,7 +60,7 @@ docker push isshomin/test-spring:1.0
 
 <br>
 
-## yml파일 작성
+## yml파일 작성 📃
 
 #### 1️⃣) minikube에 deployment를 만들기 위한 yml파일을 작성합니다. 
 
@@ -112,7 +112,7 @@ spec:
 
 <br>
 
-## deployment&pod와 service 생성
+## deployment & service 생성 💾
 
 #### 1️⃣) kubectl 명령어를 사용하여 .yml 파일을 통해 각 deployment와 service를 생성해줍니다. 
 
@@ -130,7 +130,7 @@ kubectl apply -f spring_svc.yml
 kubectl get all
 ```
 
-**출력 결과**
+**출력 결과 🖨**
 
 ![image](https://github.com/user-attachments/assets/4d228f66-e339-41f2-8927-ada36be4467a)
 <br>
@@ -141,7 +141,7 @@ kubectl get all
 minikube tunnel
 ```
 
-**출력 결과**
+**출력 결과 🖨**
 
 ![image](https://github.com/user-attachments/assets/608cd053-f91e-478c-949f-a0a75e505ca8)
 
@@ -150,7 +150,7 @@ minikube tunnel
 
 <br>
 
-## 실행 테스트 및 로그확인🎬
+## 실행 테스트 및 로그확인 🎬
 
 #### 1️⃣) 외부에서 통신할 수있게 포트포워딩을 해줍니다.
 
@@ -163,7 +163,7 @@ minikube tunnel
 curl 10.107.217.179/test
 ```
 
-**출력 결과**
+**출력 결과 🖨**
 
 ![image](https://github.com/user-attachments/assets/a701bf60-6ef1-4208-b3e1-a9872524555c)
 
@@ -203,14 +203,14 @@ curl 10.107.217.179/test
 
 ## 트러블슈팅 🎯🔫
 
-### 1️⃣) 3개 중 1개의 파드가 pending인 상황
+### 1️⃣) 3개 중 1개의 파드가 pending인 상황 ⛈
 
 ![image](https://github.com/user-attachments/assets/abc4a6dd-ffe1-4143-9d7b-4fd78f06fb73)
 <br>
 ![image](https://github.com/user-attachments/assets/bee4952d-94dd-4798-be01-01c18fc9111e)
 <br>
 
-### 원인추론
+### 원인추론 ⛅
 
 #### 다음의 명령어를 통해서 파드의 이벤트 로그를 확인합니다.
 
@@ -218,7 +218,7 @@ curl 10.107.217.179/test
 kubectl describe pod test-spring-deployment-<pod_name>
 ```
 
-**출력 결과**
+**출력 결과 🖨**
 
 0/1 nodes are available: 1 Insufficient cpu.
 
@@ -231,18 +231,21 @@ limits:
   cpu: "500m"
 ```
 
-![image](https://github.com/user-attachments/assets/044251a8-039e-4437-939e-3b372465364a)
+<br>
 
-### 해결
+### 해결 🌞
 
 #### 기존의 deployment yml파일에서 컨테이너가 사용할 수 있는 CPU의 최대 한도를 250m CPU로 설정하여 해결했습니다.
+
+![image](https://github.com/user-attachments/assets/044251a8-039e-4437-939e-3b372465364a)
+<br>
 
 ![image](https://github.com/user-attachments/assets/c50c2b41-6e5d-4bb3-8727-8a80884c79b7)
 <br>
 
 <br>
 
-### 2️⃣) 파드가 Running상태지만 url 접속이 안되는 상황
+### 2️⃣) 파드가 Running상태지만 url 접속이 안되는 상황 ⛈
 
 ![image](https://github.com/user-attachments/assets/1a292ac5-ba09-44d2-bbb7-99ae1b6c3762)
 <br>
@@ -250,7 +253,8 @@ limits:
 ![image](https://github.com/user-attachments/assets/85cf88a6-579c-4db0-915a-8b7bd14465ff)
 <br>
 
-### 원인추론
+
+### 원인추론 ⛅
 
 #### 각각의 포트번호를 확인합니다.
 |      |port        |
@@ -261,7 +265,9 @@ limits:
 
 #### 컨테이너의 포트와 jar파일의 server.port가 일치하지 않다는 것을 발견했습니다. 
 
-### 해결
+<br>
+
+### 해결 🌞
 
 #### .jar파일의 application.properties에서 server.port 설정한 포트와 Kubernetes의 Deployment 또는 Service에서 설정한 포트가 일치해야하므로 포트가 일치하도록 수정했습니다.
 |      |port        |
